@@ -5,7 +5,19 @@ const typeDefs = gql`
   type Query {
     hello: String,
     name: String
-  }
+  },
+
+  type Attack {
+  # The name of this Pokémon attack
+  name: String
+
+  # The type of this Pokémon attack
+  type: String
+
+  # The damage of this Pokémon attack
+  damage: Int
+}
+
 `;
 
 const resolvers = {
