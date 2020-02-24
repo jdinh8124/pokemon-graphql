@@ -8,6 +8,7 @@
 - GraphQL
 - Apollo
 - Pokemon API
+- GraphiQL
 
 ## Takeaways
 - GraphQL is a great alternative to the traditional RESTful APIs
