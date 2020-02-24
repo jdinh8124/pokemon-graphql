@@ -1,34 +1,42 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const fs = require('fs');
+
+let pokeObj;
+let pokemonFound;
+  // pokemons(first: Int!): [Pokemon],
+  // pokemon(id: String, name: String): Pokemon
 
 const typeDefs = gql`
-  type Query {
-    hello: String,
-    name: String
-  },
-
-  type Attack {
-  # The name of this Pokémon attack
-  name: String
-
-  # The type of this Pokémon attack
-  type: String
-
-  # The damage of this Pokémon attack
-  damage: Int
+type Query {
+  pokemon: String,
+  pokemons: String,
+  pikachu: [pokemon],
 }
 
 `;
+fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
+
+  if (err) throw err;
+  pokeObj = data;
+  pokemondFound = pokeObj[0].find(pokemon => { pokemon.id === 25 })
+});
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
-    name: () => 'James'
+    pokemon: () => 'Go Pikachu!',
+    pokemons: () => 'James',
+    pikachu: () => pokemonFound,
 
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+});
 
 const app = express();
 server.applyMiddleware({ app });
