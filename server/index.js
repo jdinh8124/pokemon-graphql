@@ -11,15 +11,20 @@ const typeDefs = gql`
 type Query {
   pokemon: String,
   pokemons: String,
-  pikachu: [pokemon],
+  pikachu: [String],
 }
 
 `;
 fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
 
   if (err) throw err;
-  pokeObj = data;
-  pokemondFound = pokeObj[0].find(pokemon => { pokemon.id === 25 })
+  pokeObj = JSON.parse(data);
+  for(const key in pokeObj){
+    if(pokeObj[key].id === "025"){
+      pokemonFound = pokeObj[key];
+    }
+  }
+  console.log( pokemonFound)
 });
 
 const resolvers = {
