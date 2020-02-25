@@ -8,10 +8,11 @@ let pokemonFound;
   // pokemon(id: String, name: String): Pokemon
 
 const typeDefs = gql`
+
+type Pokemon{}
+
 type Query {
-  pokemon: String,
-  pokemons: String,
-  pikachu: [String],
+  pikachu: Pokemon,
 }
 
 `;
@@ -29,9 +30,7 @@ fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
 
 const resolvers = {
   Query: {
-    pokemon: () => 'Go Pikachu!',
-    pokemons: () => 'James',
-    pikachu: () => pokemonFound,
+    pikachu: () => pokemonFound
 
   },
 };
