@@ -8,25 +8,45 @@ let pokemonFound;
   // pokemon(id: String, name: String): Pokemon
 
 const typeDefs = gql`
+
+
+type Pokemon{
+  id: String,
+  name: String,
+  classifications: String,
+  types: [String],
+  resistant: [String],
+  weaknesses: [String],
+  weight: [String],
+  height: [String],
+  fleeRate: Int,
+  evolutionRequirements: [String],
+  evolutions: [Int],
+  maxCP: Int,
+  MaxHP: Int,
+  Attacks: [Int]
+}
+
 type Query {
-  pokemon: String,
-  pokemons: String,
-  pikachu: [pokemon],
+  pikachu: Pokemon,
 }
 
 `;
 fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
 
   if (err) throw err;
-  pokeObj = data;
-  pokemondFound = pokeObj[0].find(pokemon => { pokemon.id === 25 })
+  pokeObj = JSON.parse(data);
+  for(const key in pokeObj){
+    if(pokeObj[key].id === "025"){
+      pokemonFound = pokeObj[key];
+    }
+  }
+  console.log( pokemonFound)
 });
 
 const resolvers = {
   Query: {
-    pokemon: () => 'Go Pikachu!',
-    pokemons: () => 'James',
-    pikachu: () => pokemonFound,
+    pikachu: () => pokemonFound
 
   },
 };
