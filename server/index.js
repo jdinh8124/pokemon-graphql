@@ -9,7 +9,22 @@ let pokemonFound;
 
 const typeDefs = gql`
 
-type Pokemon{}
+type Pokemon{
+  id: "String",
+  name: "String,
+  classifications: "String",
+  types: ["String"],
+  resistant: ["String"],
+  weaknesses: ["String"],
+  weight: {},
+  height: {},
+  fleeRate: Int,
+  evolutionRequirements: {},
+  evolutions: [Int, String],
+  maxCP: Int,
+  MaxHP: Int,
+  Attacks: {}
+}
 
 type Query {
   pikachu: Pokemon,
