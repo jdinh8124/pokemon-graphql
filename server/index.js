@@ -9,21 +9,22 @@ let pokemonFound;
 
 const typeDefs = gql`
 
+
 type Pokemon{
-  id: "String",
-  name: "String,
-  classifications: "String",
-  types: ["String"],
-  resistant: ["String"],
-  weaknesses: ["String"],
-  weight: {},
-  height: {},
+  id: String,
+  name: String,
+  classifications: String,
+  types: [String],
+  resistant: [String],
+  weaknesses: [String],
+  weight: [String],
+  height: [String],
   fleeRate: Int,
-  evolutionRequirements: {},
-  evolutions: [Int, String],
+  evolutionRequirements: [String],
+  evolutions: [Int],
   maxCP: Int,
   MaxHP: Int,
-  Attacks: {}
+  Attacks: [Int]
 }
 
 type Query {
