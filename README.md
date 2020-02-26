@@ -10,6 +10,11 @@
 - Pokemon API
 - GraphiQL
 
+## Planned Added Technologies
+- Monogo DB
+
+
+
 ## Takeaways
 - GraphQL is a great alternative to the traditional RESTful APIs
 - It is very complimentary to any full-stack developer repertoire
