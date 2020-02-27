@@ -12,9 +12,10 @@ const typeDefs = gql`
 
 
 type Query {
-  pikachu: Pokemon,
+  query: Query
+  pokemons(first: Int!): [Pokemon]
+  pokemon(id: String, name: String): Pokemon
 }
-
 
 type Pokemon{
   id: String,
@@ -87,7 +88,7 @@ fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
 
 const resolvers = {
   Query: {
-    pikachu: () => pokemonFound
+    pokemon: () => pokemonFound
 
   },
 };
