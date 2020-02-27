@@ -2,6 +2,9 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const fs = require('fs');
 
+const app = express();
+
+
 let pokeObj;
 let pokemonFound;
   // pokemons(first: Int!): [Pokemon],
@@ -24,7 +27,7 @@ type Pokemon{
   types: [String],
   resistant: [String],
   weaknesses: [String],
-  weight: [String],4
+  weight: [String],
   height: [String],
   fleeRate: Float,
   evolutionRequirements: [String],
@@ -73,6 +76,31 @@ type PokemonEvolutionRequirement {
 
 `;
 
+
+
+
+
+
+
+
+
+
+const resolvers = {
+  Query: {
+    pokemon: () => pokemonFound
+
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+});
+
+server.applyMiddleware({ app });
+
 app.get('/graphql', (req, res) => {
   const graphqlQuery = req.query.graphqlQuery;
   if (!graphqlQuery) {
@@ -96,27 +124,6 @@ app.get('/graphql', (req, res) => {
     .then((data) => res.json(data))
     .catch((err) => console.error(err));
 });
-
-
-
-
-
-const resolvers = {
-  Query: {
-    pokemon: () => pokemonFound || "hello"
-
-  },
-};
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  introspection: true,
-  playground: true,
-});
-
-const app = express();
-server.applyMiddleware({ app });
 
 app.listen({ port: 4000 }, () =>
   console.log('Now browse to http://localhost:4000' + server.graphqlPath)
