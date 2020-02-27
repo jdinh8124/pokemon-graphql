@@ -11,7 +11,8 @@
 - GraphiQL
 
 ## Planned Added Technologies
-- Monogo DB
+- Mongo DB
+- Mongo Compass
 
 
 
