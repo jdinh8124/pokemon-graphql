@@ -77,14 +77,6 @@ type PokemonEvolutionRequirement {
 `;
 
 
-
-
-
-
-
-
-
-
 const resolvers = {
   Query: {
     pokemon: () => pokemonFound
