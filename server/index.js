@@ -24,7 +24,7 @@ type Pokemon{
   types: [String],
   resistant: [String],
   weaknesses: [String],
-  weight: [String],
+  weight: [String],4
   height: [String],
   fleeRate: Float,
   evolutionRequirements: [String],
@@ -71,24 +71,39 @@ type PokemonEvolutionRequirement {
   name: String
 }
 
-
-
 `;
-fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
 
-  if (err) throw err;
-  pokeObj = JSON.parse(data);
-  for(const key in pokeObj){
-    if(pokeObj[key].id === "025"){
-      pokemonFound = pokeObj[key];
-    }
+app.get('/graphql', (req, res) => {
+  const graphqlQuery = req.query.graphqlQuery;
+  if (!graphqlQuery) {
+    return res.status(500).send('You must provide a query');
   }
-  console.log( pokemonFound)
+
+  fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
+
+    if (err) throw err;
+    pokeObj = JSON.parse(data);
+    for (const key in pokeObj) {
+      if (pokeObj[key].id === "025") {
+        pokemonFound = pokeObj[key];
+      }
+    }
+    console.log(pokemonFound)
+  });
+
+  return graphql(rootSchema, graphqlQuery)
+    .then(response => response.data)
+    .then((data) => res.json(data))
+    .catch((err) => console.error(err));
 });
+
+
+
+
 
 const resolvers = {
   Query: {
-    pokemon: () => pokemonFound
+    pokemon: () => pokemonFound || "hello"
 
   },
 };
