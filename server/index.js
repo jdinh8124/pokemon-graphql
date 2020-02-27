@@ -10,6 +10,12 @@ let pokemonFound;
 const typeDefs = gql`
 
 
+
+type Query {
+  pikachu: Pokemon,
+}
+
+
 type Pokemon{
   id: String,
   name: String,
@@ -19,17 +25,52 @@ type Pokemon{
   weaknesses: [String],
   weight: [String],
   height: [String],
-  fleeRate: Int,
+  fleeRate: Float,
   evolutionRequirements: [String],
   evolutions: [Int],
   maxCP: Int,
   MaxHP: Int,
-  Attacks: [Int]
+  attacks: PokemonAttack
 }
 
-type Query {
-  pikachu: Pokemon,
+type Attack {
+  # The name of this Pokémon attack
+  name: String
+
+  # The type of this Pokémon attack
+  type: String
+
+  # The damage of this Pokémon attack
+  damage: Int
 }
+# Represents a Pokémon's attack types
+type PokemonAttack {
+  # The fast attacks of this Pokémon
+  fast: [Attack]
+
+  # The special attacks of this Pokémon
+  special: [Attack]
+}
+
+# Represents a Pokémon's dimensions
+type PokemonDimension {
+  # The minimum value of this dimension
+  minimum: String
+
+  # The maximum value of this dimension
+  maximum: String
+}
+
+# Represents a Pokémon's requirement to evolve
+type PokemonEvolutionRequirement {
+  # The amount of candy to evolve
+  amount: Int
+
+  # The name of the candy to evolve
+  name: String
+}
+
+
 
 `;
 fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
