@@ -8,7 +8,7 @@ const client = new ApolloClient({
 })
 
 const Pokemon = gql`
-  query pokemon{
+  query Pokemon{
     id
   }
   `
