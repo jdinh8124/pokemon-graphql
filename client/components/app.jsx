@@ -1,4 +1,19 @@
 import React from 'react';
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag'
+import { ApolloProvider, Query } from 'react-apollo';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:5000/graphql'
+})
+
+const Pokemon = gql`
+  query pokemon{
+    id
+  }
+  `
+
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,8 +24,14 @@ export default class App extends React.Component {
 
   render() {
     return (
+      <ApolloProvider client={client}>
       <div>
+        <h1>Pokemon Information</h1>
+        <Query query={Pokemon}>
+
+        </Query>
       </div>
+      </ApolloProvider>
     );
   }
 

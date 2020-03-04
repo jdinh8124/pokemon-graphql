@@ -7,8 +7,6 @@ const app = express();
 
 let pokeObj;
 let pokemonFound;
-  // pokemons(first: Int!): [Pokemon],
-  // pokemon(id: String, name: String): Pokemon
 
 const typeDefs = gql`
 
@@ -76,6 +74,18 @@ type PokemonEvolutionRequirement {
 
 `;
 
+fs.readFile('database/pokemon.json', 'utf8', (err, data) => {
+
+  if (err) throw err;
+  pokeObj = JSON.parse(data);
+  for (const key in pokeObj) {
+    if (pokeObj[key].id === "025") {
+      pokemonFound = pokeObj[key];
+    }
+  }
+  console.log(pokemonFound)
+});
+
 
 const resolvers = {
   Query: {
@@ -93,7 +103,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.get('/graphql', (req, res) => {
+app.get('/graphql/find', (req, res) => {
   const graphqlQuery = req.query.graphqlQuery;
   if (!graphqlQuery) {
     return res.status(500).send('You must provide a query');
@@ -116,6 +126,10 @@ app.get('/graphql', (req, res) => {
     .then((data) => res.json(data))
     .catch((err) => console.error(err));
 });
+
+// app.use('/graphql', expressGraphQL({
+//   graphiql:true
+// }))
 
 app.listen({ port: 4000 }, () =>
   console.log('Now browse to http://localhost:4000' + server.graphqlPath)
